@@ -287,6 +287,8 @@ db.historiales.insertOne({
         update_at:"2023-05-03",
         deleted_at:"2024-10-03"
 });
+
+
 use("db_bodegas_campus");
 db.createCollection("bodegas",{
     capped: true,
@@ -296,7 +298,7 @@ db.createCollection("bodegas",{
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
-        required: [ "nombre","id_responsable","estado","created_by","update_by", "created_at", "update_at", "deleted_at"],
+        required: [ "nombre","id_responsable","estado","created_by"],
         properties: {
             _id:{
                 bsonType: 'objectId',

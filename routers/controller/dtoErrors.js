@@ -13,6 +13,7 @@ export class dtoErrors {
         Object.assign(this, data);
         this.Nombre = "";
         this.Email = "";
+        this.Responsable = "";
         this.Descripcion = "";
         this.Email_Verified_At = "";
         this.Estado = "";
@@ -41,6 +42,14 @@ __decorate([
         ""; }),
     __metadata("design:type", String)
 ], dtoErrors.prototype, "Email", void 0);
+__decorate([
+    Expose({ name: "id_responsable" }),
+    Transform(({ value }) => { if (value)
+        return value = "Error en el parametro de entrada 'Responsable'";
+    else
+        ""; }),
+    __metadata("design:type", String)
+], dtoErrors.prototype, "Responsable", void 0);
 __decorate([
     Expose({ name: "descripcion" }),
     Transform(({ value }) => { if (value)

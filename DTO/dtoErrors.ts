@@ -10,6 +10,10 @@ export class dtoErrors{
     @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Email'" ; else ""})
     Email:string
 
+    @Expose({name:"id_responsable"})
+    @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Responsable'" ; else ""})
+    Responsable:string
+
     @Expose({name:"descripcion"})
     @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Descripcion'" ; else ""})
     Descripcion:string
@@ -54,6 +58,7 @@ export class dtoErrors{
         Object.assign(this, data);
         this.Nombre="";
         this.Email="";
+        this.Responsable="";
         this.Descripcion="";
         this.Email_Verified_At="";
         this.Estado="";
