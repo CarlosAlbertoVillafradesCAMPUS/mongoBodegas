@@ -158,7 +158,7 @@ db.createCollection("inventarios",{
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
-        required: [ "id_bodega", "id_producto", "cantidad","created_by","update_by", "created_at", "update_at", "deleted_at"],
+        required: [ "id_bodega", "id_producto", "cantidad","created_by"],
         properties: {
             _id:{
                 bsonType: 'objectId',
@@ -213,6 +213,8 @@ db.inventarios.insertOne({
         update_at:"2023-12-03",
         deleted_at:"2024-05-03"
 });
+
+
 use("db_bodegas_campus");
 db.createCollection("historiales",{
     capped: true,
