@@ -1,7 +1,7 @@
 import {Expose, Transform} from "class-transformer";
 import {IsEmpty} from "class-validator";
 
-export class dtoErrorsUsers{
+export class dtoErrors{
     @Expose({name:"nombre"})
     @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Nombre'" ; else ""})
     Nombre:string
@@ -9,6 +9,10 @@ export class dtoErrorsUsers{
     @Expose({name:"email"})
     @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Email'" ; else ""})
     Email:string
+
+    @Expose({name:"descripcion"})
+    @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Descripcion'" ; else ""})
+    Descripcion:string
 
     @Expose({name:"email_verified_at"})
     @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Email_Verified_At'" ; else ""})
@@ -46,10 +50,11 @@ export class dtoErrorsUsers{
     @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Deleted_At'" ; else ""})
     Deleted_At:string 
 
-    constructor(data: Partial<dtoErrorsUsers>){
+    constructor(data: Partial<dtoErrors>){
         Object.assign(this, data);
         this.Nombre="";
         this.Email="";
+        this.Descripcion="";
         this.Email_Verified_At="";
         this.Estado="";
         this.Crated_By="";

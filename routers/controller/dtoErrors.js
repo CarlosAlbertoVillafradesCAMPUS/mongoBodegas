@@ -8,11 +8,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose, Transform } from "class-transformer";
-export class dtoErrorsUsers {
+export class dtoErrors {
     constructor(data) {
         Object.assign(this, data);
         this.Nombre = "";
         this.Email = "";
+        this.Descripcion = "";
         this.Email_Verified_At = "";
         this.Estado = "";
         this.Crated_By = "";
@@ -31,7 +32,7 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Nombre", void 0);
+], dtoErrors.prototype, "Nombre", void 0);
 __decorate([
     Expose({ name: "email" }),
     Transform(({ value }) => { if (value)
@@ -39,7 +40,15 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Email", void 0);
+], dtoErrors.prototype, "Email", void 0);
+__decorate([
+    Expose({ name: "descripcion" }),
+    Transform(({ value }) => { if (value)
+        return value = "Error en el parametro de entrada 'Descripcion'";
+    else
+        ""; }),
+    __metadata("design:type", String)
+], dtoErrors.prototype, "Descripcion", void 0);
 __decorate([
     Expose({ name: "email_verified_at" }),
     Transform(({ value }) => { if (value)
@@ -47,7 +56,7 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Email_Verified_At", void 0);
+], dtoErrors.prototype, "Email_Verified_At", void 0);
 __decorate([
     Expose({ name: "estado" }),
     Transform(({ value }) => { if (value)
@@ -55,7 +64,7 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Estado", void 0);
+], dtoErrors.prototype, "Estado", void 0);
 __decorate([
     Expose({ name: "created_by" }),
     Transform(({ value }) => { if (value)
@@ -63,7 +72,7 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Crated_By", void 0);
+], dtoErrors.prototype, "Crated_By", void 0);
 __decorate([
     Expose({ name: "update_by" }),
     Transform(({ value }) => { if (value)
@@ -71,7 +80,7 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Update_By", void 0);
+], dtoErrors.prototype, "Update_By", void 0);
 __decorate([
     Expose({ name: "foto" }),
     Transform(({ value }) => { if (value)
@@ -79,7 +88,7 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Image", void 0);
+], dtoErrors.prototype, "Image", void 0);
 __decorate([
     Expose({ name: "password" }),
     Transform(({ value }) => { if (value)
@@ -87,7 +96,7 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Password", void 0);
+], dtoErrors.prototype, "Password", void 0);
 __decorate([
     Expose({ name: "created_at" }),
     Transform(({ value }) => { if (value)
@@ -95,7 +104,7 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Created_At", void 0);
+], dtoErrors.prototype, "Created_At", void 0);
 __decorate([
     Expose({ name: "update_at" }),
     Transform(({ value }) => { if (value)
@@ -103,7 +112,7 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Update_At", void 0);
+], dtoErrors.prototype, "Update_At", void 0);
 __decorate([
     Expose({ name: "deleted_at" }),
     Transform(({ value }) => { if (value)
@@ -111,4 +120,4 @@ __decorate([
     else
         ""; }),
     __metadata("design:type", String)
-], dtoErrorsUsers.prototype, "Deleted_At", void 0);
+], dtoErrors.prototype, "Deleted_At", void 0);

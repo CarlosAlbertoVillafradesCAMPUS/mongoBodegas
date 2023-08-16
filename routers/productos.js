@@ -3,18 +3,18 @@ import { plainToClass } from "class-transformer";
 import { Router } from "express";
 import { conexion } from "../db/connect.js";
 import {configGet} from "../middleware/limit.js"
-import {appDtoDataUsers, appMiddlewareUsersVerify} from "../middleware/usersVerify.js";
+import {appDtoDataProductos, appMiddlewareProductosVerify} from "../middleware/productosVerify.js";
 import {dtoErrors} from "../routers/controller/dtoErrors.js";
 
-const storageUser = Router();
-storageUser.use(configGet());
-storageUser.use(appMiddlewareUsersVerify);
+const storageProductos = Router();
+storageProductos.use(configGet());
+storageProductos.use(appMiddlewareProductosVerify);
 
 let dataBase = await conexion()
 
-storageUser.get("/", async(req,res)=>{
+storageProductos.get("/", async(req,res)=>{
     try {
-        let collection =  dataBase.collection("users");
+        let collection =  dataBase.collection("productos");
         let data = await collection.find().toArray();
         res.send(data)
     } catch (error) {
@@ -22,9 +22,9 @@ storageUser.get("/", async(req,res)=>{
     }
 })
 
-storageUser.post('/', appDtoDataUsers, async(req, res) => {
+storageProductos.post('/', appDtoDataProductos, async(req, res) => {
     try{
-        let collection =  dataBase.collection("users");
+        let collection =  dataBase.collection("productos");
         let result = await collection.insertOne(req.body);
         res.status(201).send(result);
     } catch (error){
@@ -39,4 +39,4 @@ storageUser.post('/', appDtoDataUsers, async(req, res) => {
     }
 });
 
-export default storageUser;
+export default storageProductos;

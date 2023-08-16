@@ -7,7 +7,7 @@ db.createCollection("users",{
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
-        required: [ "nombre", "email", "estado","created_by","update_by","password"],
+        required: [ "nombre", "email", "estado","created_by","password"],
         properties: {
             _id:{
                 bsonType: 'objectId',
@@ -90,7 +90,7 @@ db.createCollection("productos",{
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
-        required: [ "nombre", "descripcion", "estado","created_by","update_by", "created_at", "update_at", "deleted_at"],
+        required: [ "nombre", "descripcion", "estado","created_by"],
         properties: {
             _id:{
                 bsonType: 'objectId',
@@ -138,8 +138,8 @@ db.createCollection("productos",{
 });
 use("db_bodegas_campus");
 db.productos.insertOne({
-        nombre:"villa",
-        descripcion:"villafrades el mejor",
+        nombre:"zapatillas",
+        descripcion:"las mejores zapatillas",
         estado: 1,
         created_by:1,
         update_by:1,
@@ -147,6 +147,8 @@ db.productos.insertOne({
         update_at:"2023-05-03",
         deleted_at:"2023-10-03"
 });
+
+
 use("db_bodegas_campus");
 db.createCollection("inventarios",{
     capped: true,
