@@ -1,4 +1,14 @@
 use("db_bodegas_campus");
+db.createCollection("counters")
+db.counters.insertMany([
+    {ID: "usersID", sequenceValue: 0},
+    {ID: "productosID", sequenceValue: 0},
+    {ID: "inventariosID", sequenceValue: 0},
+    {ID: "bodegasID", sequenceValue: 0},
+    {ID: "historialesID", sequenceValue: 0}
+])
+
+use("db_bodegas_campus");
 db.createCollection("users",{
     capped: true,
     size: 1900,
@@ -7,11 +17,12 @@ db.createCollection("users",{
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
-        required: [ "nombre", "email", "estado","created_by","password"],
+        required: [ "nombre", "email", "estado", "created_by", "password"],
         properties: {
-            _id:{
-                bsonType: 'objectId',
-            },
+            ID: {
+                bsonType: "int",
+                description: "ID debe ser un int",
+              },
             nombre: {
                 bsonType: "string",
                 pattern: "^[A-Za-z\\s]+$",
@@ -78,8 +89,9 @@ db.createCollection("productos",{
         additionalProperties: false,
         required: [ "nombre", "descripcion", "estado","created_by"],
         properties: {
-            _id:{
-                bsonType: 'objectId',
+            ID: {
+                bsonType: "int",
+                description: "ID debe ser un int",
             },
             nombre: {
                 bsonType: "string",
@@ -134,8 +146,9 @@ db.createCollection("inventarios",{
         additionalProperties: false,
         required: [ "id_bodega", "id_producto", "cantidad","created_by"],
         properties: {
-            _id:{
-                bsonType: 'objectId',
+            ID: {
+                bsonType: "int",
+                description: "ID debe ser un int",
             },
             id_bodega: {
                 bsonType: "int",
@@ -188,8 +201,9 @@ db.createCollection("historiales",{
         additionalProperties: false,
         required: [ "cantidad","id_bodega_origen", "id_bodega_destino", "id_inventario" ,"estado","created_by"],
         properties: {
-            _id:{
-                bsonType: 'objectId',
+            ID: {
+                bsonType: "int",
+                description: "ID debe ser un int",
             },
             cantidad: {
                 bsonType: "int",
@@ -264,8 +278,9 @@ db.createCollection("bodegas",{
         additionalProperties: false,
         required: [ "nombre","id_responsable","estado","created_by"],
         properties: {
-            _id:{
-                bsonType: 'objectId',
+            ID: {
+                bsonType: "int",
+                description: "ID debe ser un int",
             },
             nombre: {
                 bsonType: "string",

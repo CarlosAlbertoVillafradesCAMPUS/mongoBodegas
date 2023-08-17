@@ -5,6 +5,7 @@ import { conexion } from "../db/connect.js";
 import {configGet} from "../middleware/limit.js"
 import {appDtoDataBodegas, appMiddlewareBodegasVerify} from "../middleware/bodegasVerify.js";
 import {dtoErrors} from "../routers/controller/dtoErrors.js";
+import { autoIncrement } from "../helpers/autoIncrement.js";
 
 const storageBodegas = Router();
 storageBodegas.use(configGet());
@@ -43,10 +44,15 @@ storageBodegas.post('/', appDtoDataBodegas, async(req, res) => {
         "Created_At": "2023-10-11"
       }*/
     try{
+      let newId = await autoIncrement("bodegas")
         let collection =  dataBase.collection("bodegas");
+
         let cantidad = await collection.countDocuments();
         if(cantidad >= 5){res.status(401).send({status:401, message:"Se alcanzo el limite de Bodegas agregadas"})}
-        let result = await collection.insertOne(req.body);
+
+        let result = await collection.insertOne({
+          ID: newId,
+          ...req.body});
         res.status(201).send(result);
     } catch (error){
         let errors = error.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied;
