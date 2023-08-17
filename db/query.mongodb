@@ -66,20 +66,6 @@ db.createCollection("users",{
     },
     },
 });
-use("db_bodegas_campus");
-db.users.insertOne({
-        nombre:"Carlos",
-        email:"cavilla@gmail.com",
-        email_verified_at:"2024-10-03",
-        estado: 1,
-        created_by:1,
-        update_by:1,
-        foto: "",
-        password:"villa",
-        created_at:"2022-12-03",
-        update_at:"2023-06-03",
-        deleted_at:"2024-11-03"
-});
 
 use("db_bodegas_campus");
 db.createCollection("productos",{
@@ -136,18 +122,6 @@ db.createCollection("productos",{
     },
     },
 });
-use("db_bodegas_campus");
-db.productos.insertOne({
-        nombre:"zapatillas",
-        descripcion:"las mejores zapatillas",
-        estado: 1,
-        created_by:1,
-        update_by:1,
-        created_at:"2023-01-03",
-        update_at:"2023-05-03",
-        deleted_at:"2023-10-03"
-});
-
 
 use("db_bodegas_campus");
 db.createCollection("inventarios",{
@@ -202,18 +176,6 @@ db.createCollection("inventarios",{
     },
     },
 });
-use("db_bodegas_campus");
-db.inventarios.insertOne({
-        id_bodega:1,
-        id_producto:1,
-        cantidad: 1,
-        created_by:1,
-        update_by:1,
-        created_at:"2022-10-03",
-        update_at:"2023-12-03",
-        deleted_at:"2024-05-03"
-});
-
 
 use("db_bodegas_campus");
 db.createCollection("historiales",{
@@ -224,7 +186,7 @@ db.createCollection("historiales",{
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
-        required: [ "cantidad","id_bodega_origen", "id_bodega_destino", "id_inventario" ,"estado","created_by","update_by"],
+        required: [ "cantidad","id_bodega_origen", "id_bodega_destino", "id_inventario" ,"estado","created_by"],
         properties: {
             _id:{
                 bsonType: 'objectId',
@@ -345,6 +307,61 @@ db.createCollection("bodegas",{
     },
     },
 });
+
+//AGREGAR DATOS
+use("db_bodegas_campus");
+db.users.insertOne({
+        nombre:"Carlos",
+        email:"cavilla@gmail.com",
+        email_verified_at:"2024-10-03",
+        estado: 1,
+        created_by:1,
+        update_by:1,
+        foto: "",
+        password:"villa",
+        created_at:"2022-12-03",
+        update_at:"2023-06-03",
+        deleted_at:"2024-11-03"
+});
+
+use("db_bodegas_campus");
+db.productos.insertOne({
+        nombre:"zapatillas",
+        descripcion:"las mejores zapatillas",
+        estado: 1,
+        created_by:1,
+        update_by:1,
+        created_at:"2023-01-03",
+        update_at:"2023-05-03",
+        deleted_at:"2023-10-03"
+});
+
+use("db_bodegas_campus");
+db.inventarios.insertOne({
+        id_bodega:1,
+        id_producto:1,
+        cantidad: 1,
+        created_by:1,
+        update_by:1,
+        created_at:"2022-10-03",
+        update_at:"2023-12-03",
+        deleted_at:"2024-05-03"
+});
+
+use("db_bodegas_campus");
+db.historiales.insertOne({
+        cantidad:1,
+        id_bodega_origen:1,
+        id_bodega_destino:1,
+        id_inventario:1,
+        estado: 1,
+        created_by:1,
+        update_by:1,
+        created_at:"2022-01-03",
+        update_at:"2023-05-03",
+        deleted_at:"2024-10-03"
+});
+
 use("db_bodegas_campus");
 db.bodegas.insertOne({
         nombre:"El gran villa",

@@ -24,6 +24,12 @@ export class dtoErrors {
         this.Created_At = "";
         this.Update_At = "";
         this.Deleted_At = "";
+        this.Id_Bodega = "";
+        this.Id_Producto = "";
+        this.Cantidad = "";
+        this.Id_Bodega_Origen = "";
+        this.Id_Bodega_Destino = "";
+        this.Id_Inventario = "";
     }
 }
 __decorate([
@@ -130,3 +136,51 @@ __decorate([
         ""; }),
     __metadata("design:type", String)
 ], dtoErrors.prototype, "Deleted_At", void 0);
+__decorate([
+    Expose({ name: "id_bodega" }),
+    Transform(({ value }) => { if (value)
+        return value = "Error en el parametro de entrada 'Id_Bodega'";
+    else
+        ""; }),
+    __metadata("design:type", String)
+], dtoErrors.prototype, "Id_Bodega", void 0);
+__decorate([
+    Expose({ name: "id_producto" }),
+    Transform(({ value }) => { if (value)
+        return value = "Error en el parametro de entrada 'Id_Producto'";
+    else
+        ""; }),
+    __metadata("design:type", String)
+], dtoErrors.prototype, "Id_Producto", void 0);
+__decorate([
+    Expose({ name: "cantidad" }),
+    Transform(({ value }) => { if (value)
+        return value = "Error en el parametro de entrada 'Cantidad'";
+    else
+        ""; }),
+    __metadata("design:type", String)
+], dtoErrors.prototype, "Cantidad", void 0);
+__decorate([
+    Expose({ name: "id_bodega_origen" }),
+    Transform(({ value }) => { if (value)
+        return value = "Error en el parametro de entrada 'Id_Bodega_Origen'";
+    else
+        ""; }),
+    __metadata("design:type", String)
+], dtoErrors.prototype, "Id_Bodega_Origen", void 0);
+__decorate([
+    Expose({ name: "id_bodega_destino" }),
+    Transform(({ value }) => { if (value)
+        return value = "Error en el parametro de entrada 'Id_Bodega_Destino'";
+    else
+        ""; }),
+    __metadata("design:type", String)
+], dtoErrors.prototype, "Id_Bodega_Destino", void 0);
+__decorate([
+    Expose({ name: "id_inventario" }),
+    Transform(({ value }) => { if (value)
+        return value = "Error en el parametro de entrada 'Id_Inventario'";
+    else
+        ""; }),
+    __metadata("design:type", String)
+], dtoErrors.prototype, "Id_Inventario", void 0);

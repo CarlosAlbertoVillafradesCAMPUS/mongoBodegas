@@ -54,6 +54,30 @@ export class dtoErrors{
     @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Deleted_At'" ; else ""})
     Deleted_At:string 
 
+    @Expose({name:"id_bodega"})
+    @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Id_Bodega'" ; else ""})
+    Id_Bodega:string 
+
+    @Expose({name:"id_producto"})
+    @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Id_Producto'" ; else ""})
+    Id_Producto:string 
+
+    @Expose({name:"cantidad"})
+    @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Cantidad'" ; else ""})
+    Cantidad:string 
+
+    @Expose({name:"id_bodega_origen"})
+    @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Id_Bodega_Origen'" ; else ""})
+    Id_Bodega_Origen:string
+
+    @Expose({name:"id_bodega_destino"})
+    @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Id_Bodega_Destino'" ; else ""})
+    Id_Bodega_Destino:string
+
+    @Expose({name:"id_inventario"})
+    @Transform(({ value }) => { if(value)  return value = "Error en el parametro de entrada 'Id_Inventario'" ; else ""})
+    Id_Inventario:string
+
     constructor(data: Partial<dtoErrors>){
         Object.assign(this, data);
         this.Nombre="";
@@ -69,5 +93,11 @@ export class dtoErrors{
         this.Created_At="";
         this.Update_At="";
         this.Deleted_At=""; 
+        this.Id_Bodega="";
+        this.Id_Producto="";
+        this.Cantidad="";
+        this.Id_Bodega_Origen="";
+        this.Id_Bodega_Destino="";
+        this.Id_Inventario="";
     }
 }

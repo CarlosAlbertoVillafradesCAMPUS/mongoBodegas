@@ -7,6 +7,7 @@ import {dtoUsers} from "../routers/controller/dtoUsers.js";
 import {dtoProductos} from "../routers/controller/dtoProductos.js";
 import {dtoBodegas} from "../routers/controller/dtoBodegas.js";
 import {dtoInventarios} from "../routers/controller/dtoInventarios.js";
+import {dtoHistoriales} from "../routers/controller/dtoHistoriales.js"
 
 dotenv.config("../");
 const generarToken = Router();
@@ -17,7 +18,8 @@ const structurasDto = (collect) => {
         "users": dtoUsers,
         "productos": dtoProductos,
         "bodegas": dtoBodegas,
-        "inventarios": dtoInventarios
+        "inventarios": dtoInventarios,
+        "historiales": dtoHistoriales
     };
 
     const myCollect = instCollect[collect];
