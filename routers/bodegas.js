@@ -12,10 +12,23 @@ storageBodegas.use(appMiddlewareBodegasVerify);
 
 let dataBase = await conexion()
 
+//Realizar un EndPolnt que permita listar todas las bodegas ordenadas alfabéticamente.
 storageBodegas.get("/", async(req,res)=>{
     try {
         let collection =  dataBase.collection("bodegas");
-        let data = await collection.find().toArray();
+        //let cantidad = await collection.countDocuments();
+        //if(cantidad >= 5){res.status(401).send({status:401, message:"Se alcanzo el limite de datos agregados"})}
+        let data = await collection.aggregate([
+            {
+              $sort:{nombre: -1}
+            },
+            {
+              $project: {
+                _id: 0,
+              },
+            },
+          ])
+          .toArray();
         res.send(data)
     } catch (error) {
         console.log(error.message)
@@ -23,6 +36,14 @@ storageBodegas.get("/", async(req,res)=>{
 })
 
 storageBodegas.post('/', appDtoDataBodegas, async(req, res) => {
+    /*{
+        "Nombre": "aaaaaa",
+        "Responsable": 1,
+        "Estado": 1,
+        "Created_By": 1,
+        "Update_By": 1,
+        "Created_At": "2023-10-11"
+      }*/
     try{
         let collection =  dataBase.collection("bodegas");
         let result = await collection.insertOne(req.body);
