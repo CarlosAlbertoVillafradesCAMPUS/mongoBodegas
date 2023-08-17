@@ -16,8 +16,6 @@ let dataBase = await conexion()
 storageBodegas.get("/", async(req,res)=>{
     try {
         let collection =  dataBase.collection("bodegas");
-        //let cantidad = await collection.countDocuments();
-        //if(cantidad >= 5){res.status(401).send({status:401, message:"Se alcanzo el limite de datos agregados"})}
         let data = await collection.aggregate([
             {
               $sort:{nombre: -1}
@@ -37,7 +35,7 @@ storageBodegas.get("/", async(req,res)=>{
 
 storageBodegas.post('/', appDtoDataBodegas, async(req, res) => {
     /*{
-        "Nombre": "aaaaaa",
+        "Nombre": " El gran villa",
         "Responsable": 1,
         "Estado": 1,
         "Created_By": 1,
@@ -46,6 +44,8 @@ storageBodegas.post('/', appDtoDataBodegas, async(req, res) => {
       }*/
     try{
         let collection =  dataBase.collection("bodegas");
+        let cantidad = await collection.countDocuments();
+        if(cantidad >= 5){res.status(401).send({status:401, message:"Se alcanzo el limite de Bodegas agregadas"})}
         let result = await collection.insertOne(req.body);
         res.status(201).send(result);
     } catch (error){
