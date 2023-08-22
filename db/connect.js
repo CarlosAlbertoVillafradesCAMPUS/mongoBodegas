@@ -12,7 +12,6 @@ export const conexion = async() =>{
             useUnifiedTopology: true
         }
         let client = await MongoClient.connect(uri, options)
-        console.log("Conexion exitosa");
         return client.db()
 
     } catch (error) {

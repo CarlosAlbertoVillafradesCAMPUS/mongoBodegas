@@ -16,7 +16,20 @@ let dataBase = await conexion()
 storageInventarios.get("/", async(req,res)=>{
     try {
         let collection =  dataBase.collection("inventarios");
-        let data = await collection.find().toArray();
+        let data = await collection.aggregate([
+            {
+                $project:{
+                    _id:0,
+                    ID: "$ID",
+                    Id_Bodega: "$id_bodega",
+                    Id_Producto: "$id_producto",
+                    Cantidad: "$cantidad",
+                    Created_By: "$created_by",
+                    Created_At: "$created_at",
+                    Update_At: "$update_at"
+                }
+            }
+        ]).toArray();
         res.send(data)
     } catch (error) {
         console.log(error.message)
@@ -25,14 +38,43 @@ storageInventarios.get("/", async(req,res)=>{
 
 storageInventarios.post('/', appDtoDataInventarios, async(req, res) => {
     try{
-        let newId = await autoIncrement("inventarios");
-        req.body.created_at = new Date();
+        /* Realizar un EndPoint que permita insertar registros en la tabla de
+inventarios, los parámetros de entradadebenser
+(id_producto,id_bodega,cantidad). */
+/* {
+    "Id_Bodega": 2,
+    "Id_Producto": 5,
+    "Cantidad": 3,
+    "Created_By": 1
+  } */
+        let {id_producto, id_bodega, cantidad} = req.body
 
         let collection =  dataBase.collection("inventarios");
-        let result = await collection.insertOne({
-            ID: newId,
-            ...req.body});
-        res.status(201).send(result);
+        let combinacion = await collection.findOne(
+            {
+                id_producto,
+                id_bodega
+            }
+        );
+        if (!combinacion) {
+            let newId = await autoIncrement("inventarios");
+            req.body.created_at = new Date();
+            await collection.insertOne({
+                ID: newId,
+                ...req.body
+            })
+            res.status(201).send({status:201, message: "[Inventario Inexistente]. Agregado con exito"})
+        } else{
+            await collection.updateOne(
+                {
+                    "ID": combinacion.ID
+                },
+                {
+                    $inc:{"cantidad": cantidad },
+                    $set:{"update_at": new Date()}
+                })
+                res.status(201).send({status:201, message:"[Inventario Existente]. Modificada la cantidad con exito"})
+        }
     } catch (error){
         let errors = error.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied;
         let objError = {};

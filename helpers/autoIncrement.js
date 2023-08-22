@@ -8,7 +8,6 @@ export const autoIncrement = async (colleccionName) =>{
         { $inc: { sequenceValue: 1 } },
         { returnDocument: "after" }
     );
-    console.log(resultado.value);
 
     return resultado.value.sequenceValue;
 
