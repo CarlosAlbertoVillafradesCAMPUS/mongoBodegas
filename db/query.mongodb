@@ -293,6 +293,42 @@ db.createCollection("bodegas",{
     },
 });
 
+ use("db_bodegas_campus");
+ db.productos.aggregate([
+    {
+        $lookup: {
+            from: "inventarios", 
+            localField: "ID",    
+            foreignField: "id_producto",
+            as: "inventarios_info"
+        }
+    },
+    {
+        $unwind: "$inventarios_info"
+    },
+    {
+        $group: {
+            _id: "$_id",
+            ID: {$first:"$ID"},
+            nombre: { $first: "$nombre" },
+            descripcion: { $first: "$descripcion" },
+            estado: { $first: "$estado" },
+            created_by: { $first: "$created_by" },  
+            total: { $sum: "$inventarios_info.cantidad" }, 
+        }
+    },
+    {
+        $project:{
+            _id:0
+        }
+    },
+    {
+        $sort: { total: -1 } 
+    }
+])
+
+
+
 //AGREGAR DATOS
 /* use("db_bodegas_campus");
 db.users.insertOne({

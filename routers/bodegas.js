@@ -41,7 +41,6 @@ storageBodegas.post('/', appDtoDataBodegas, async(req, res) => {
         "Estado": 1,
         "Created_By": 1,
         "Update_By": 1,
-        "Created_At": "2023-10-11"
       }*/
     try{
       let newId = await autoIncrement("bodegas")
