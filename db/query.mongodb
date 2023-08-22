@@ -10,15 +10,15 @@ db.counters.insertMany([
 
 use("db_bodegas_campus");
 db.createCollection("users",{
-    capped: true,
-    size: 1900,
-    max: 5,
     validator: {
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
         required: [ "nombre", "email", "estado", "created_by", "password"],
         properties: {
+            _id:{
+                bsonType: 'objectId',
+            },
             ID: {
                 bsonType: "int",
                 description: "ID debe ser un int",
@@ -34,9 +34,8 @@ db.createCollection("users",{
                 description: "Debe informar el campo email y este debe ser un string",
             },
             email_verified_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo email_verified_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo email_verified_at debe ser tipo date",
             },
             estado: {
                 bsonType: "int",
@@ -59,19 +58,16 @@ db.createCollection("users",{
                 description: "Debe informar el campo password y este debe ser un string",
             },
             created_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo created_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo created_at debe ser un date ",
             },
             update_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo update_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo update_at debe ser un  date",
             },
             deleted_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo deleted_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo deleted_at debe ser un date ",
             }
         },
     },
@@ -80,15 +76,15 @@ db.createCollection("users",{
 
 use("db_bodegas_campus");
 db.createCollection("productos",{
-    capped: true,
-    size: 1900,
-    max: 5,
     validator: {
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
         required: [ "nombre", "descripcion", "estado","created_by"],
         properties: {
+            _id:{
+                bsonType: 'objectId',
+            },
             ID: {
                 bsonType: "int",
                 description: "ID debe ser un int",
@@ -116,19 +112,16 @@ db.createCollection("productos",{
                 description: "El campo update_by debe ser un número"
             },
             created_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo created_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo created_at debe ser un date ",
             },
             update_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo update_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo update_at debe ser un  date",
             },
             deleted_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo deleted_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo deleted_at debe ser un date ",
             }
         },
     },
@@ -137,15 +130,15 @@ db.createCollection("productos",{
 
 use("db_bodegas_campus");
 db.createCollection("inventarios",{
-    capped: true,
-    size: 1900,
-    max: 5,
     validator: {
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
         required: [ "id_bodega", "id_producto", "cantidad","created_by"],
         properties: {
+            _id:{
+                bsonType: 'objectId',
+            },
             ID: {
                 bsonType: "int",
                 description: "ID debe ser un int",
@@ -171,19 +164,16 @@ db.createCollection("inventarios",{
                 description: "El campo update_by debe ser un número"
             },
             created_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo created_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo created_at debe ser un date ",
             },
             update_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo update_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo update_at debe ser un  date",
             },
             deleted_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo deleted_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo deleted_at debe ser un date ",
             }
         },
     },
@@ -192,15 +182,15 @@ db.createCollection("inventarios",{
 
 use("db_bodegas_campus");
 db.createCollection("historiales",{
-    capped: true,
-    size: 1900,
-    max: 5,
     validator: {
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
         required: [ "cantidad","id_bodega_origen", "id_bodega_destino", "id_inventario" ,"estado","created_by"],
         properties: {
+            _id:{
+                bsonType: 'objectId',
+            },
             ID: {
                 bsonType: "int",
                 description: "ID debe ser un int",
@@ -234,50 +224,33 @@ db.createCollection("historiales",{
                 description: "El campo update_by debe ser un número"
             },
             created_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo created_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo created_at debe ser un date ",
             },
             update_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo update_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo update_at debe ser un  date",
             },
             deleted_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo deleted_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo deleted_at debe ser un date ",
             }
         },
     },
     },
 });
-use("db_bodegas_campus");
-db.historiales.insertOne({
-        cantidad:1,
-        id_bodega_origen:1,
-        id_bodega_destino:1,
-        id_inventario:1,
-        estado: 1,
-        created_by:1,
-        update_by:1,
-        created_at:"2022-01-03",
-        update_at:"2023-05-03",
-        deleted_at:"2024-10-03"
-});
-
 
 use("db_bodegas_campus");
 db.createCollection("bodegas",{
-    capped: true,
-    size: 1900,
-    max: 5,
     validator: {
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
         required: [ "nombre","id_responsable","estado","created_by"],
         properties: {
+            _id:{
+                bsonType: 'objectId',
+            },
             ID: {
                 bsonType: "int",
                 description: "ID debe ser un int",
@@ -304,19 +277,16 @@ db.createCollection("bodegas",{
                 description: "El campo update_by debe ser un número"
             },
             created_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo created_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo created_at debe ser un date ",
             },
             update_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo update_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo update_at debe ser un  date",
             },
             deleted_at: {
-                bsonType: "string",
-                pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
-                description: "El campo deleted_at debe ser un string  con la siguiente estructura AAAA-MM-DD",
+                bsonType: ["date", "null"],
+                description: "El campo deleted_at debe ser un date ",
             }
         },
     },
@@ -324,7 +294,7 @@ db.createCollection("bodegas",{
 });
 
 //AGREGAR DATOS
-use("db_bodegas_campus");
+/* use("db_bodegas_campus");
 db.users.insertOne({
         nombre:"Carlos",
         email:"cavilla@gmail.com",
@@ -388,3 +358,17 @@ db.bodegas.insertOne({
         update_at:"2023-18-04",
         deleted_at:"2023-20-05"
 });
+
+use("db_bodegas_campus");
+db.historiales.insertOne({
+        cantidad:1,
+        id_bodega_origen:1,
+        id_bodega_destino:1,
+        id_inventario:1,
+        estado: 1,
+        created_by:1,
+        update_by:1,
+        created_at:"2022-01-03",
+        update_at:"2023-05-03",
+        deleted_at:"2024-10-03"
+});*/

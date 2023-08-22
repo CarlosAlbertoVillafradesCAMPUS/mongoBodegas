@@ -5,6 +5,7 @@ import { conexion } from "../db/connect.js";
 import {configGet} from "../middleware/limit.js"
 import {appDtoDataProductos, appMiddlewareProductosVerify} from "../middleware/productosVerify.js";
 import {dtoErrors} from "../routers/controller/dtoErrors.js";
+import { autoIncrement } from "../helpers/autoIncrement.js";
 
 const storageProductos = Router();
 storageProductos.use(configGet());
@@ -24,8 +25,13 @@ storageProductos.get("/", async(req,res)=>{
 
 storageProductos.post('/', appDtoDataProductos, async(req, res) => {
     try{
+        let newId = await autoIncrement("productos");
+        req.body.created_at = new Date();
+
         let collection =  dataBase.collection("productos");
-        let result = await collection.insertOne(req.body);
+        let result = await collection.insertOne({
+            ID: newId,
+            ...req.body});
         res.status(201).send(result);
     } catch (error){
         let errors = error.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied;

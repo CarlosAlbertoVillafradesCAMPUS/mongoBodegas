@@ -17,9 +17,9 @@ export class dtoProductos {
         this.estado = 0;
         this.created_by = 0;
         this.update_by = 0;
-        this.created_at = "";
-        this.update_at = "";
-        this.deleted_at = "";
+        this.created_at = null;
+        this.update_at = null;
+        this.deleted_at = null;
     }
 }
 __decorate([
@@ -49,16 +49,16 @@ __decorate([
 __decorate([
     Expose({ name: "Created_At" }),
     IsOptional(),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], dtoProductos.prototype, "created_at", void 0);
 __decorate([
     Expose({ name: "Update_At" }),
     IsOptional(),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], dtoProductos.prototype, "update_at", void 0);
 __decorate([
     Expose({ name: "Deleted_At" }),
     IsOptional(),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], dtoProductos.prototype, "deleted_at", void 0);
 //"nombre", "descripcion", "estado","created_by","update_by", "created_at", "update_at", "deleted_at"

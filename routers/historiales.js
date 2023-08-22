@@ -5,6 +5,7 @@ import { conexion } from "../db/connect.js";
 import {configGet} from "../middleware/limit.js"
 import {appDtoDataHistoriales, appMiddlewareHistorialesVerify} from "../middleware/historialesVerify.js";
 import {dtoErrors} from "../routers/controller/dtoErrors.js";
+import { autoIncrement } from "../helpers/autoIncrement.js";
 
 const storageHistoriales = Router();
 storageHistoriales.use(configGet());
@@ -24,8 +25,14 @@ storageHistoriales.get("/", async(req,res)=>{
 
 storageHistoriales.post('/', appDtoDataHistoriales, async(req, res) => {
     try{
+        let newId = await autoIncrement("historiales")
+      req.body.created_at = new Date();
+
         let collection =  dataBase.collection("historiales");
-        let result = await collection.insertOne(req.body);
+        let result = await collection.insertOne({
+            ID: newId,
+            ...req.body
+        });
         res.status(201).send(result);
     } catch (error){
         let errors = error.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied;

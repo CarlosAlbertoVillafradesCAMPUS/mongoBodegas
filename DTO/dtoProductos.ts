@@ -23,15 +23,15 @@ export class dtoProductos{
 
     @Expose({name:"Created_At"})
     @IsOptional()
-    created_at:string
+    created_at:Date
 
     @Expose({name:"Update_At"})
     @IsOptional()    
-    update_at:string
+    update_at:Date
 
     @Expose({name:"Deleted_At"})
     @IsOptional()
-    deleted_at:string
+    deleted_at:Date
 
     constructor(data: Partial<dtoProductos>){
         Object.assign(this, data);
@@ -40,9 +40,9 @@ export class dtoProductos{
         this.estado=0;
         this.created_by=0;
         this.update_by=0;
-        this.created_at="";
-        this.update_at="";
-        this.deleted_at=""; 
+        this.created_at=null;
+        this.update_at=null;
+        this.deleted_at=null; 
     }
 }
 

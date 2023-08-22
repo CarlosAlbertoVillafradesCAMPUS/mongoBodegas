@@ -45,11 +45,9 @@ storageBodegas.post('/', appDtoDataBodegas, async(req, res) => {
       }*/
     try{
       let newId = await autoIncrement("bodegas")
+      req.body.created_at = new Date();
+
         let collection =  dataBase.collection("bodegas");
-
-        let cantidad = await collection.countDocuments();
-        if(cantidad >= 5){res.status(401).send({status:401, message:"Se alcanzo el limite de Bodegas agregadas"})}
-
         let result = await collection.insertOne({
           ID: newId,
           ...req.body});

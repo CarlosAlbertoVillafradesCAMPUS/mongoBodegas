@@ -20,9 +20,9 @@ export class dtoUsers {
         this.update_by = 0;
         this.foto = "";
         this.password = "";
-        this.created_at = "";
-        this.update_at = "";
-        this.deleted_at = "";
+        this.created_at = null;
+        this.update_at = null;
+        this.deleted_at = null;
     }
 }
 __decorate([
@@ -73,16 +73,16 @@ __decorate([
 __decorate([
     Expose({ name: "Created_At" }),
     IsOptional(),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], dtoUsers.prototype, "created_at", void 0);
 __decorate([
     Expose({ name: "Update_At" }),
     IsOptional(),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], dtoUsers.prototype, "update_at", void 0);
 __decorate([
     Expose({ name: "Deleted_At" }),
     IsOptional(),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], dtoUsers.prototype, "deleted_at", void 0);
 //"nombre", "email", "email_verified_at", "estado","created_by","update_by","password", "created_at", "update_at", "deleted_at"
