@@ -292,3 +292,12 @@ db.createCollection("bodegas",{
     },
     },
 });
+
+use("db_bodegas_campus");
+db.bodegas.fin([
+    {
+        $match: {
+          $or:[{ID:2}, {ID:3}]
+        }
+    }
+])

@@ -16,15 +16,12 @@ export class dtoHistoriales{
     id_bodega_destino:number
 
     @Expose({name:"Id_Inventario"})
-    @IsDefined({message: ()=>{throw {status:422, message:"El parametro 'Id_Inventario' es obligatorio"}}})
     id_inventario:number
 
     @Expose({name:"Estado"})
-    @IsDefined({message: ()=>{throw {status:422, message:"El parametro 'Estado' es obligatorio"}}})
     estado:number
 
     @Expose({name:"Created_By"})
-    @IsDefined({message: ()=>{throw {status:422, message:"El parametro 'Created_By' es obligatorio"}}})
     created_by:number
 
     @Expose({name:"Update_By"})
@@ -42,6 +39,9 @@ export class dtoHistoriales{
     @IsOptional()
     deleted_at:Date
 
+    @Expose({name:"Id_Producto"})
+    id_producto:number
+
     constructor(data: Partial<dtoHistoriales>){
         Object.assign(this, data);
         this.cantidad=0;
@@ -53,7 +53,8 @@ export class dtoHistoriales{
         this.update_by=0;
         this.created_at=null;
         this.update_at=null;
-        this.deleted_at=null; 
+        this.deleted_at=null;
+        this.id_producto = 0; 
     }
 }
 

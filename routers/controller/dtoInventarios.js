@@ -20,8 +20,6 @@ export class dtoInventarios {
         this.created_at = null;
         this.update_at = null;
         this.deleted_at = null;
-        this.id_bodega_origen = 0;
-        this.id_bodega_destino = 0;
     }
 }
 __decorate([
@@ -63,12 +61,4 @@ __decorate([
     IsOptional(),
     __metadata("design:type", Date)
 ], dtoInventarios.prototype, "deleted_at", void 0);
-__decorate([
-    Expose({ name: "Id_Bodega_Origen" }),
-    __metadata("design:type", Number)
-], dtoInventarios.prototype, "id_bodega_origen", void 0);
-__decorate([
-    Expose({ name: "Id_Bodega_Destino" }),
-    __metadata("design:type", Number)
-], dtoInventarios.prototype, "id_bodega_destino", void 0);
 //"id_bodega", "id_producto", "cantidad","created_by"

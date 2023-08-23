@@ -1,11 +1,13 @@
 import "reflect-metadata";
 import { plainToClass } from "class-transformer";
 import { Router } from "express";
-import { conexion } from "../db/connect.js";
+import { conexion, conAtlas } from "../db/connect.js";
 import {configGet} from "../middleware/limit.js"
 import {appDtoDataInventarios, appMiddlewareInventariosVerify} from "../middleware/inventariosVerify.js";
+import { appDtoDataHistoriales } from "../middleware/historialesVerify.js";
 import {dtoErrors} from "../routers/controller/dtoErrors.js";
 import { autoIncrement } from "../helpers/autoIncrement.js";
+import { MongoClient } from "mongodb";
 
 const storageInventarios = Router();
 storageInventarios.use(configGet());
@@ -37,8 +39,7 @@ storageInventarios.get("/", async(req,res)=>{
 })
 
 storageInventarios.post('/', appDtoDataInventarios, async(req, res) => {
-    try{
-        /* Realizar un EndPoint que permita insertar registros en la tabla de
+            /* Realizar un EndPoint que permita insertar registros en la tabla de
 inventarios, los parámetros de entradadebenser
 (id_producto,id_bodega,cantidad). */
 /* {
@@ -47,6 +48,7 @@ inventarios, los parámetros de entradadebenser
     "Cantidad": 3,
     "Created_By": 1
   } */
+    try{
         let {id_producto, id_bodega, cantidad} = req.body
 
         let collection =  dataBase.collection("inventarios");
@@ -87,7 +89,7 @@ inventarios, los parámetros de entradadebenser
     }
 });
 
-storageInventarios.post('/transladar', appDtoDataInventarios, async(req, res) => {
+storageInventarios.post('/transladar', appDtoDataHistoriales, async(req, res) => {
        /* Realizar un EndPolnt que permita Trasladar unproducto de una bodega a otra*/
 /* {
   "Id_Bodega": 2,
@@ -96,11 +98,18 @@ storageInventarios.post('/transladar', appDtoDataInventarios, async(req, res) =>
   "Cantidad": 3,
   "Created_By": 1
 }*/ 
-    try{
-        let {id_bodega, id_bodega_destino, id_producto, cantidad} = req.body;
-        let id_bodega_origen = id_bodega;
+const client = await conAtlas();
+const session = client.startSession();
+session.startTransaction();
 
+    try{
+        let {id_bodega_origen, id_bodega_destino, id_producto, cantidad} = req.body;
         let collection =  dataBase.collection("inventarios");
+        let collecionBodega = dataBase.collection("bodegas")
+        let bodegaExist = await collecionBodega.findOne({ID: id_bodega_origen})
+        if (!bodegaExist) {
+            return res.status(400).send({status:400, message: "Error, Bodega de origen inexistente"});       
+        }
         let validateInventario = await collection.findOne(
             {
                 id_bodega: id_bodega_origen,
@@ -114,11 +123,11 @@ storageInventarios.post('/transladar', appDtoDataInventarios, async(req, res) =>
         if(validateInventario.cantidad < cantidad) {
             return res.status(400).send({status:400, message: "Error, cantidad insuficiente para el transpaso"})
         }
-        id_bodega = id_bodega_destino;
+
         let combinacion = await collection.findOne(
             {
-                id_producto,
-                id_bodega
+                id_producto: id_producto,
+                id_bodega: id_bodega_destino
             }
         );
         if (!combinacion) {
@@ -164,14 +173,24 @@ storageInventarios.post('/transladar', appDtoDataInventarios, async(req, res) =>
                 res.status(201).send({status:201, message:"Transpaso Existoso"})
         
     } catch (error){
-        let errors = error.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied;
-        let objError = {};
-        errors.forEach((val,id) => {
-            let propiedad = val.propertyName;
-            objError[`${propiedad}`] = val.description
-        });
-        let data = plainToClass(dtoErrors, objError);
-        res.status(400).send({status:400, message: data});
+        await session.abortTransaction();
+        session.endSession();
+        res.status(400).send({status:400, message: error.message});
+
+        if (error.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied) {
+            let errors = error.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied;
+            let objError = {};
+            errors.forEach((val,id) => {
+                let propiedad = val.propertyName;
+                objError[`${propiedad}`] = val.description
+            });
+    
+            let data = plainToClass(dtoErrors, objError);
+            res.status(400).send({status:400, message: data});
+        }
+       
+    } finally{
+        client.close();
     }
 });
 

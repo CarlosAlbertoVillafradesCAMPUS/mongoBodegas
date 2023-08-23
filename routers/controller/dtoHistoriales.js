@@ -22,6 +22,7 @@ export class dtoHistoriales {
         this.created_at = null;
         this.update_at = null;
         this.deleted_at = null;
+        this.id_producto = 0;
     }
 }
 __decorate([
@@ -41,17 +42,14 @@ __decorate([
 ], dtoHistoriales.prototype, "id_bodega_destino", void 0);
 __decorate([
     Expose({ name: "Id_Inventario" }),
-    IsDefined({ message: () => { throw { status: 422, message: "El parametro 'Id_Inventario' es obligatorio" }; } }),
     __metadata("design:type", Number)
 ], dtoHistoriales.prototype, "id_inventario", void 0);
 __decorate([
     Expose({ name: "Estado" }),
-    IsDefined({ message: () => { throw { status: 422, message: "El parametro 'Estado' es obligatorio" }; } }),
     __metadata("design:type", Number)
 ], dtoHistoriales.prototype, "estado", void 0);
 __decorate([
     Expose({ name: "Created_By" }),
-    IsDefined({ message: () => { throw { status: 422, message: "El parametro 'Created_By' es obligatorio" }; } }),
     __metadata("design:type", Number)
 ], dtoHistoriales.prototype, "created_by", void 0);
 __decorate([
@@ -73,4 +71,8 @@ __decorate([
     IsOptional(),
     __metadata("design:type", Date)
 ], dtoHistoriales.prototype, "deleted_at", void 0);
+__decorate([
+    Expose({ name: "Id_Producto" }),
+    __metadata("design:type", Number)
+], dtoHistoriales.prototype, "id_producto", void 0);
 //"cantidad","id_bodega_origen", "id_bodega_destino", "id_inventario" ,"estado","created_by"
