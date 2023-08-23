@@ -87,4 +87,92 @@ inventarios, los parámetros de entradadebenser
     }
 });
 
+storageInventarios.post('/transladar', appDtoDataInventarios, async(req, res) => {
+       /* Realizar un EndPolnt que permita Trasladar unproducto de una bodega a otra*/
+/* {
+  "Id_Bodega": 2,
+  "Id_Bodega_Destino": 4,
+  "Id_Producto": 1,
+  "Cantidad": 3,
+  "Created_By": 1
+}*/ 
+    try{
+        let {id_bodega, id_bodega_destino, id_producto, cantidad} = req.body;
+        let id_bodega_origen = id_bodega;
+
+        let collection =  dataBase.collection("inventarios");
+        let validateInventario = await collection.findOne(
+            {
+                id_bodega: id_bodega_origen,
+                id_producto: id_producto,
+                
+            });
+        
+        if (!validateInventario) {
+            return res.status(400).send({status:400, message: "Error en los parametros de entrada"});       
+        }
+        if(validateInventario.cantidad < cantidad) {
+            return res.status(400).send({status:400, message: "Error, cantidad insuficiente para el transpaso"})
+        }
+        id_bodega = id_bodega_destino;
+        let combinacion = await collection.findOne(
+            {
+                id_producto,
+                id_bodega
+            }
+        );
+        if (!combinacion) {
+            await collection.updateOne(
+                {
+                    "ID": validateInventario.ID
+                },
+                {
+                    $inc:{"cantidad": -cantidad},
+                    $set:{"update_at": new Date()}
+                });
+
+            let newId = await autoIncrement("inventarios");
+            await collection.insertOne({
+                ID: newId,
+                id_bodega: id_bodega_destino,
+                id_producto: id_producto,
+                cantidad: cantidad,
+                created_by: req.body.created_by,
+                created_at: new Date()
+            });
+
+            return res.status(201).send({status:201, message:"Transpaso Exito. [Inventario Destino Inexistente]. se creo el inventario y se Realizo el transpaso"})  
+            }
+                await collection.updateOne(
+                    {
+                        "ID": validateInventario.ID
+                    },
+                    {
+                        $inc:{"cantidad": -cantidad },
+                        $set:{"update_at": new Date()}
+                    })
+
+                await collection.updateOne(
+                    {
+                        "ID": combinacion.ID
+                    },
+                    {
+                        $inc:{"cantidad": cantidad },
+                        $set:{"update_at": new Date()}
+                    })
+
+                res.status(201).send({status:201, message:"Transpaso Existoso"})
+        
+    } catch (error){
+        let errors = error.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied;
+        let objError = {};
+        errors.forEach((val,id) => {
+            let propiedad = val.propertyName;
+            objError[`${propiedad}`] = val.description
+        });
+        let data = plainToClass(dtoErrors, objError);
+        res.status(400).send({status:400, message: data});
+    }
+});
+
 export default storageInventarios;

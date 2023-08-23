@@ -9,7 +9,6 @@ const appDtoDataHistoriales = Router();
 appMiddlewareHistorialesVerify.use(async(req,res,next)=>{
     let {payload} = req.data;
     let {iat, exp, ...newPayload} = payload;
-    console.log(newPayload);
     payload = newPayload;
 
     let clone = JSON.stringify(classToPlain(plainToClass(structurasDto("historiales").class,{},{ignoreDecorators:true})))

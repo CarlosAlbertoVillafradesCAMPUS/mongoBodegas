@@ -12,7 +12,7 @@ import { IsDefined, IsOptional } from "class-validator";
 export class dtoInventarios {
     constructor(data) {
         Object.assign(this, data);
-        this.id_bodega = "";
+        this.id_bodega = 0;
         this.id_producto = 0;
         this.cantidad = 0;
         this.created_by = 0;
@@ -20,12 +20,14 @@ export class dtoInventarios {
         this.created_at = null;
         this.update_at = null;
         this.deleted_at = null;
+        this.id_bodega_origen = 0;
+        this.id_bodega_destino = 0;
     }
 }
 __decorate([
     Expose({ name: "Id_Bodega" }),
     IsDefined({ message: () => { throw { status: 422, message: "El parametro 'Id_Bodega' es obligatorio" }; } }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], dtoInventarios.prototype, "id_bodega", void 0);
 __decorate([
     Expose({ name: "Id_Producto" }),
@@ -61,4 +63,12 @@ __decorate([
     IsOptional(),
     __metadata("design:type", Date)
 ], dtoInventarios.prototype, "deleted_at", void 0);
+__decorate([
+    Expose({ name: "Id_Bodega_Origen" }),
+    __metadata("design:type", Number)
+], dtoInventarios.prototype, "id_bodega_origen", void 0);
+__decorate([
+    Expose({ name: "Id_Bodega_Destino" }),
+    __metadata("design:type", Number)
+], dtoInventarios.prototype, "id_bodega_destino", void 0);
 //"id_bodega", "id_producto", "cantidad","created_by"

@@ -9,7 +9,6 @@ const appDtoDataBodegas = Router();
 appMiddlewareBodegasVerify.use(async(req,res,next)=>{
     let {payload} = req.data;
     let {iat, exp, ...newPayload} = payload;
-    console.log(newPayload);
     payload = newPayload;
 
     let clone = JSON.stringify(classToPlain(plainToClass(structurasDto("bodegas").class,{},{ignoreDecorators:true})))

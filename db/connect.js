@@ -17,4 +17,4 @@ export const conexion = async() =>{
     } catch (error) {
         return {status:500, message:"Error en la conexion"}
     }
-}
+} 

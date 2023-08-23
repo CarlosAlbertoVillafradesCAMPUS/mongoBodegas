@@ -9,7 +9,6 @@ const appDtoDataUsers = Router();
 appMiddlewareUsersVerify.use(async(req,res,next)=>{
     let {payload} = req.data;
     let {iat, exp, ...newPayload} = payload;
-    console.log(newPayload);
     payload = newPayload;
 
     let clone = JSON.stringify(classToPlain(plainToClass(structurasDto("users").class,{},{ignoreDecorators:true})))

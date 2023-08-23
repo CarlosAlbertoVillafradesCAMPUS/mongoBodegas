@@ -21,7 +21,6 @@ const structurasDto = (collect) => {
         "inventarios": dtoInventarios,
         "historiales": dtoHistoriales
     };
-
     const myCollect = instCollect[collect];
     if(!myCollect) throw {status: 404, message: "Token solicitado no valido"}
     return {atributos: plainToClass(myCollect, {}, {ignoreDecorators: true}), class: myCollect}
