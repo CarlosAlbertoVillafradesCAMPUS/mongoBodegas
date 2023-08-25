@@ -31,11 +31,11 @@ storageProductos.get("/", async(req,res)=>{
                 $group: {
                     _id: "$_id",
                     ID: {$first:"$ID"},
-                    nombre: { $first: "$nombre" },
-                    descripcion: { $first: "$descripcion" },
-                    estado: { $first: "$estado" },
-                    created_by: { $first: "$created_by" },  
-                    total: { $sum: "$inventarios_info.cantidad" }, 
+                    Nombre: { $first: "$nombre" },
+                    Descripcion: { $first: "$descripcion" },
+                    Estado: { $first: "$estado" },
+                    Created_By: { $first: "$created_by" },  
+                    Total: { $sum: "$inventarios_info.cantidad" }, 
                 }
             },
             {
