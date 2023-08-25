@@ -23,12 +23,13 @@ storageBodegas.get("/", async(req,res)=>{
             },
             {
               $project: {
+                _id:0,
                 ID: "$ID",
-                Nombre: "nombre",
-                Id_Responsable: "id_responsable",
-                Estado:"estado",
-                Created_By:"created_by",
-                Created_At: "created_at"
+                Nombre: "$nombre",
+                Id_Responsable: "$id_responsable",
+                Estado:"$estado",
+                Created_By:"$created_by",
+                Created_At: "$created_at"
               },
             },
           ])
