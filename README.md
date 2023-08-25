@@ -81,6 +81,7 @@ Antes de empezar a realizar las consultas o EndPoints debemosos generar un token
 - productos
 
 **Ejemplo**
+
 ![diagrama](./assets/Screenshot%20from%202023-08-25%2014-24-13.png)
 
 ![diagrama](./assets/Screenshot%20from%202023-08-25%2013-32-58.png)
