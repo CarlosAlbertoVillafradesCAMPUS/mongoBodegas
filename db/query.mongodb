@@ -1,10 +1,9 @@
 use("db_bodegas_campus");
 db.createCollection("counters")
 db.counters.insertMany([
-    {ID: "usersID", sequenceValue: 0},
-    {ID: "productosID", sequenceValue: 0},
-    {ID: "inventariosID", sequenceValue: 0},
-    {ID: "bodegasID", sequenceValue: 0},
+    {ID: "productosID", sequenceValue: 3},
+    {ID: "inventariosID", sequenceValue: 5},
+    {ID: "bodegasID", sequenceValue: 3},
     {ID: "historialesID", sequenceValue: 0}
 ])
 
@@ -14,7 +13,7 @@ db.createCollection("users",{
     $jsonSchema: {
         bsonType: "object",
         additionalProperties: false,
-        required: [ "nombre", "email", "estado", "created_by", "password"],
+        required: [ "ID","nombre", "email", "estado", "created_by", "password"],
         properties: {
             _id:{
                 bsonType: 'objectId',
@@ -25,12 +24,12 @@ db.createCollection("users",{
               },
             nombre: {
                 bsonType: "string",
-                pattern: "^[A-Za-z\\s]+$",
+                pattern: "^[A-Za-z ]+$",
                 description: "Debe informar el campo nombre y este debe ser un string",
             },
             email: {
                 bsonType: "string",
-                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@-]+$",
                 description: "Debe informar el campo email y este debe ser un string",
             },
             email_verified_at: {
@@ -54,7 +53,7 @@ db.createCollection("users",{
             },
             password: {
                 bsonType: "string",
-                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@ -]+$",
                 description: "Debe informar el campo password y este debe ser un string",
             },
             created_at: {
@@ -91,12 +90,12 @@ db.createCollection("productos",{
             },
             nombre: {
                 bsonType: "string",
-                pattern: "^[A-Za-z\\s]+$",
+                pattern: "^[A-Za-z ]+$",
                 description: "el campo name y este debe ser un string",
             },
             descripcion: {
                 bsonType: "string",
-                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@ -]+$",
                 description: "el campo descripcion y este debe ser un string",
             },
             estado: {
@@ -257,7 +256,7 @@ db.createCollection("bodegas",{
             },
             nombre: {
                 bsonType: "string",
-                pattern: "^[A-Za-z\\s]+$",
+                pattern: "^[A-Za-z ]+$",
                 description: "Debe informar el campo name y este debe ser un string",
             },
             id_responsable: {
@@ -293,11 +292,125 @@ db.createCollection("bodegas",{
     },
 });
 
+//INSERCION DATOS POR DEFECTO
+
+//USERS
 use("db_bodegas_campus");
-db.bodegas.fin([
-    {
-        $match: {
-          $or:[{ID:2}, {ID:3}]
-        }
-    }
-])
+db.users.insertMany([
+  {
+    ID: 1005644957,
+    nombre: "carlos",
+    email: "usuario1@example.com",
+    estado: 1,
+    created_by: 100,
+    password: "password123",
+  },
+  {
+    ID: 1259486256,
+    nombre: "andres",
+    email: "usuario2@example.com",
+    estado: 1,
+    created_by: 101,
+    password: "password456",
+  },
+  {
+    ID: 1007514215,
+    nombre: "jose",
+    email: "usuario3@example.com",
+    estado: 1,
+    created_by: 102,
+    password: "password789",
+  }
+]);
+
+//PRODUCTOS
+use("db_bodegas_campus");
+db.productos.insertMany([
+  {
+    ID: 1,
+    nombre: "Pantalones",
+    descripcion: "Descripción del Pantalones",
+    estado: 1,
+    created_by: 1,
+  },
+  {
+    ID: 2,
+    nombre: "Camisas",
+    descripcion: "Descripción del Camisas",
+    estado: 1,
+    created_by: 1,
+  },
+  {
+    ID: 3,
+    nombre: "Zapatos",
+    descripcion: "Descripción del Zapatos54",
+    estado: 1,
+    created_by: 1,
+  }
+]); 
+
+//INVENTARIOS
+use("db_bodegas_campus");
+db.inventarios.insertMany([
+  {
+    ID: 1,
+    id_bodega: 1,
+    id_producto: 1,
+    cantidad: 50,
+    created_by: 1,
+  },
+  {
+    ID: 2,
+    id_bodega: 1,
+    id_producto: 2,
+    cantidad: 30,
+    created_by: 1,
+  },
+  {
+    ID: 3,
+    id_bodega: 2,
+    id_producto: 1,
+    cantidad: 20,
+    created_by: 1,
+  },
+  {
+    ID: 4,
+    id_bodega: 3,
+    id_producto: 2,
+    cantidad: 10,
+    created_by: 1,
+  },
+  {
+    ID: 5,
+    id_bodega: 3,
+    id_producto: 1,
+    cantidad: 25,
+    created_by: 1,
+  },
+]);
+
+//BODEGAS
+use("db_bodegas_campus");
+db.bodegas.insertMany([
+  {
+    ID: 1,
+    nombre: "Bodega A",
+    id_responsable: 1005644957,
+    estado: 1,
+    created_by: 1,
+  },
+  {
+    ID: 2,
+    nombre: "Bodega B",
+    id_responsable: 1259486256,
+    estado: 1,
+    created_by: 1,
+  },
+  {
+    ID: 3,
+    nombre: "Bodega C",
+    id_responsable: 1007514215,
+    estado: 1,
+    created_by: 1,
+  }
+]);
